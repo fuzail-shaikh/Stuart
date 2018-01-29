@@ -1,0 +1,10 @@
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_done"
+        android:title="@string/done"
+        android:icon="@mipmap/ic_check"
+        android:orderInCategory="1"
+        app:showAsAction="always" />
+</menu>
