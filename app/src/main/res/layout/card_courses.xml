@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/courseCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/card_margins"
+        android:layout_marginLeft="@dimen/card_margins"
+        android:layout_marginRight="@dimen/card_margins"
+        app:cardUseCompatPadding="true"
+        app:contentPadding="12dp"
+        app:cardBackgroundColor="@color/cardBackground">
+
+        <RelativeLayout
+            android:id="@+id/courseCardLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxWidth="200dp"
+                android:text="COURSE"
+                android:textSize="24sp"
+                android:textColor="@color/cardTextColor"/>
+            <TextView
+                android:id="@+id/faculty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="FACULTY"
+                android:textSize="16sp"
+                android:textColor="@color/cardSubTextColor"
+                android:layout_below="@id/title"/>
+
+            <TextView
+                android:id="@+id/writeupCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="8"
+                android:textSize="28sp"
+                android:textColor="@color/cardTextColor"
+                android:layout_marginRight="25dp"
+                android:layout_alignParentEnd="true"/>
+            <TextView
+                android:id="@+id/writeup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="WRITE-UPS"
+                android:textSize="14sp"
+                android:textColor="@color/cardTextColor"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@id/writeupCount"/>
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>
