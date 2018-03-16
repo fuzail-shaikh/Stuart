@@ -1,9 +1,7 @@
 package kjsce.stuart;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,33 +19,35 @@ public class Courses extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_courses, container, false);
-
-        FloatingActionButton fab = (FloatingActionButton)view.findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getContext(), Chat.class);
-                startActivity(intent);
-            }
-        });
         return view;
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        getActivity().setTitle("Courses");
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        layout = (RelativeLayout)getActivity().findViewById(R.id.coursesLayout);
+        layout = getActivity().findViewById(R.id.coursesLayout);
     }
 
     @Override
     public void onStart() {
         super.onStart();
+        if(recyclerView!=null){
+            layout.removeView(recyclerView);
+        }
+        recyclerView = new RecyclerView(getActivity());
+        recyclerView.setPadding(0,(int)(6*getActivity().getResources().getDisplayMetrics().density),
+                0,(int)(90*getActivity().getResources().getDisplayMetrics().density));
+        recyclerView.setClipToPadding(false);
+        recyclerView.setTranslationY(60);
+        recyclerView.animate().translationY(0).setDuration(300).setInterpolator(new DecelerateInterpolator());
+        layout.addView(recyclerView);
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+
+        RecyclerView.Adapter recyclerAdapter = new CoursesAdapter(getActivity());
+        recyclerView.setAdapter(recyclerAdapter);
     }
 
 }

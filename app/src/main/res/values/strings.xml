@@ -2,9 +2,6 @@
     <string name="app_name">Stuart</string>
     <string name="title_activity_main">Stuart</string>
 
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-
     <string name="courses">Courses</string>
     <string name="schedule">Schedule</string>
     <string name="notices">Notices</string>
@@ -12,6 +9,22 @@
     <string name="about">About</string>
     <string name="done">Done</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="action_settings">Settings</string>
+    <array name="branch">
+        <item name="IT">Information Technology</item>
+        <item name="COMP">Computer Engineering</item>
+        <item name="ETRX">Electrical Engineering</item>
+        <item name="ELEC">Electronics Engineering</item>
+        <item name="MECH">Mechanical Engineering</item>
+    </array>
+    <array name="year">
+        <item name="FY">First Year</item>
+        <item name="SY">Second Year</item>
+        <item name="TY">Third Year</item>
+        <item name="LY">Last Year</item>
+    </array>
+    <array name="div">
+        <item name="A">A</item>
+        <item name="B">B</item>
+    </array>
 </resources>

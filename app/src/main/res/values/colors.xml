@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimary">#F5F5F5</color>
+    <color name="colorPrimaryDark">#C0C0C0</color>
     <color name="colorAccent">#2196F3</color>
+    <color name="textColorPrimary">#000000</color>
+    <color name="windowBackground">#FFFFFF</color>
 
-    <color name="cardBackground">#EEEEEE</color>
+    <color name="tabText">#444444</color>
+    <color name="tabSelectedText">#000000</color>
+
+    <color name="cardBackground">#F5F5F5</color>
     <color name="cardTextColor">#252525</color>
     <color name="cardSubTextColor">#656565</color>
 </resources>
