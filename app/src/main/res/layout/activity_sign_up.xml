@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SignUp">
+
+    <ImageView
+        android:id="@+id/page_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"
+        android:layout_alignParentTop="true"
+        android:src="@mipmap/account_page_header" />
+
+    <TextView
+        android:id="@+id/page_header_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/page_header"
+        android:layout_marginStart="16dp"
+        android:fontFamily="sans-serif-condensed"
+        android:text="SIGN UP"
+        android:textColor="@color/page_header_title"
+        android:textSize="36sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/BlueEditText"
+        android:inputType="textEmailAddress"
+        android:layout_below="@id/page_header_title"
+        android:layout_marginTop="16dp"
+        android:hint="Somaiya email id"/>
+
+    <EditText
+        android:id="@+id/pass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/BlueEditText"
+        android:inputType="textPassword"
+        android:layout_below="@id/email"
+        android:layout_marginTop="12dp"
+        android:hint="Password"/>
+
+    <EditText
+        android:id="@+id/cpass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/BlueEditText"
+        android:inputType="textPassword"
+        android:layout_below="@id/pass"
+        android:layout_marginTop="12dp"
+        android:hint="Confirm Password"/>
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/signUpButton"
+        style="@style/BlueButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/cpass"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="12dp"
+        android:text="SIGN UP"
+        android:onClick="signUp"/>
+
+    <TextView
+        android:id="@+id/sign_in"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="24dp"
+        android:fontFamily="sans-serif-condensed"
+        android:textStyle="bold"
+        android:text="Sign In"
+        android:textColor="@color/colorAccent"
+        android:textSize="24sp"
+        android:layout_centerHorizontal="true"
+        android:onClick="signIn"/>
+
+    <TextView
+        android:id="@+id/already_account_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/sign_in"
+        android:text="Already have an account?"
+        android:textColor="@color/page_header_title"
+        android:textSize="20sp"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/signUpButton"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="12dp"
+        android:text="* Account already exists, Try logging in"
+        android:textColor="@color/red"
+        android:textSize="20sp"
+        android:visibility="gone"/>
+
+</RelativeLayout>

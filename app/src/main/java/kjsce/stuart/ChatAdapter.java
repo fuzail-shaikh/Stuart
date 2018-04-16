@@ -2,6 +2,7 @@ package kjsce.stuart;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.TextHttpResponseHandler;
@@ -35,14 +35,16 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
         cards.add(new ChatCard("Hi "+prefs.getString("NAME", "")+", what can I do for you?", "text", false));
     }
 
-    public void addMessage(String msg, String type, boolean myMessage){
+    void addMessage(String msg, String type, boolean myMessage){
         cards.add(new ChatCard(msg, type, myMessage));
         notifyDataSetChanged();
-        new AsyncHttpClient().get(prefs.getString("SERVER", "localhost:3000")+"?msg="+msg, new TextHttpResponseHandler() {
+        String server = context.getString(R.string.server)+":"+context.getString(R.string.port);
+        new AsyncHttpClient().get(server+"/chatbot?msg="+msg, new TextHttpResponseHandler() {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                Toast.makeText(context, responseString, Toast.LENGTH_SHORT).show();
+                cards.add(new ChatCard(responseString, "text", false));
+                notifyDataSetChanged();
             }
 
             @Override
@@ -50,10 +52,10 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
                 cards.add(new ChatCard(responseString, "text", false));
                 notifyDataSetChanged();
             }
-
         });
     }
 
+    @NonNull
     @Override
     public ChatViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_chat, parent, false);
@@ -76,7 +78,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
         holder.msg.setText(cards.get(holder.getAdapterPosition()).msg);
     }
 
-    public static class ChatViewHolder extends RecyclerView.ViewHolder {
+    static class ChatViewHolder extends RecyclerView.ViewHolder {
         CardView cardView;
         RelativeLayout layout;
         TextView msg;

@@ -14,7 +14,7 @@ import android.widget.TextView;
 public class Settings extends AppCompatActivity {
     private SharedPreferences prefs;
     private SharedPreferences.Editor editor;
-    private TextView name, email, server;
+    private TextView name;
     private Spinner branch, year, div;
     private SwitchCompat notificationSwitch;
 
@@ -22,15 +22,14 @@ public class Settings extends AppCompatActivity {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-        prefs = getSharedPreferences("STUART", Context.MODE_PRIVATE);
+        prefs = getSharedPreferences("Stuart", Context.MODE_PRIVATE);
         editor = prefs.edit();
 
         if(getSupportActionBar()!=null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         name = findViewById(R.id.name);
-        email = findViewById(R.id.email);
-        server = findViewById(R.id.server);
+        TextView email = findViewById(R.id.email);
         branch = findViewById(R.id.branch);
         year = findViewById(R.id.year);
         div = findViewById(R.id.div);
@@ -38,7 +37,9 @@ public class Settings extends AppCompatActivity {
 
         name.setText(prefs.getString("NAME",""));
         email.setText(prefs.getString("EMAIL",""));
-        server.setText(prefs.getString("SERVER",""));
+        branch.setSelection(getSpinnerPositionByValue(branch, prefs.getString("BRANCH","")));
+        year.setSelection(getSpinnerPositionByValue(year, prefs.getString("YEAR","")));
+        div.setSelection(getSpinnerPositionByValue(div, prefs.getString("DIV","")));
 
         if(prefs.getBoolean("NOTIFICATION",false)){
             notificationSwitch.setChecked(true);
@@ -61,6 +62,12 @@ public class Settings extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == android.R.id.home){
+            editor.putString("NAME", name.getText().toString());
+            editor.putString("BRANCH", branch.getSelectedItem().toString());
+            editor.putString("YEAR", year.getSelectedItem().toString());
+            editor.putString("DIV", div.getSelectedItem().toString());
+            editor.putBoolean("NOTIFICATION", notificationSwitch.isChecked());
+            editor.apply();
             finish();
         }
         return super.onOptionsItemSelected(item);
@@ -70,8 +77,19 @@ public class Settings extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         editor.putString("NAME", name.getText().toString());
-        editor.putString("EMAIL", email.getText().toString());
-        editor.putString("SERVER", server.getText().toString());
+        editor.putString("BRANCH", branch.getSelectedItem().toString());
+        editor.putString("YEAR", year.getSelectedItem().toString());
+        editor.putString("DIV", div.getSelectedItem().toString());
+        editor.putBoolean("NOTIFICATION", notificationSwitch.isChecked());
         editor.apply();
+    }
+
+    private int getSpinnerPositionByValue(Spinner spinner, String myString){
+        for (int i=0; i<spinner.getCount(); i++){
+            if (spinner.getItemAtPosition(i).toString().equalsIgnoreCase(myString)){
+                return i;
+            }
+        }
+        return 0;
     }
 }

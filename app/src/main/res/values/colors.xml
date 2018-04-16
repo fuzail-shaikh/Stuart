@@ -9,6 +9,9 @@
     <color name="tabText">#444444</color>
     <color name="tabSelectedText">#000000</color>
 
+    <color name="page_header_title">#424242</color>
+    <color name="red">#F44336</color>
+
     <color name="cardBackground">#F5F5F5</color>
     <color name="cardTextColor">#252525</color>
     <color name="cardSubTextColor">#656565</color>

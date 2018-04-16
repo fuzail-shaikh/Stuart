@@ -21,8 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private SharedPreferences prefs;
-    private SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,13 +54,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        prefs = getSharedPreferences("STUART", Context.MODE_PRIVATE);
-        editor = prefs.edit();
+        SharedPreferences prefs = getSharedPreferences("STUART", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
         if(prefs.getBoolean("NEW_APP",true)){
             editor.putBoolean("NEW_APP", false);
             editor.putString("NAME", "");
             editor.putString("EMAIL", "");
-            editor.putString("SERVER", "server IP");
             editor.apply();
         }
     }
