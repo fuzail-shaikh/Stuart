@@ -14,16 +14,7 @@ public class Splash extends AppCompatActivity {
         overridePendingTransition(R.animator.fade_in,R.animator.fade_out);
         setContentView(R.layout.activity_splash);
         SharedPreferences preferences = getSharedPreferences("Stuart", MODE_PRIVATE);
-        ////// Static account
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putBoolean("LOGGED_IN", true);
-        editor.putString("NAME", "Fuzail Shaikh");
-        editor.putString("EMAIL", "fuzail.shaikh@somaiya.edu");
-        editor.putString("BRANCH", "Information Technology");
-        editor.putString("YEAR", "Last Year");
-        editor.putString("DIV", "A");
-        editor.apply();
-        //////
+
         if(preferences.getBoolean("LOGGED_IN", false)){
             //Start the app after some delay
             new Handler().postDelayed(new Runnable() {

@@ -1,8 +1,7 @@
 <resources>
     <string name="app_name">Stuart</string>
     <string name="title_activity_main">Stuart</string>
-    <string name="server">http://52.42.138.217</string>
-    <string name="port">3000</string>
+    <string name="server">http://52.42.138.217:3000</string>
 
     <string name="courses">Courses</string>
     <string name="schedule">Schedule</string>
@@ -20,13 +19,17 @@
         <item name="MECH">Mechanical Engineering</item>
     </array>
     <array name="year">
-        <item name="FY">First Year</item>
-        <item name="SY">Second Year</item>
-        <item name="TY">Third Year</item>
-        <item name="LY">Last Year</item>
+        <item name="FY">FY</item>
+        <item name="SY">SY</item>
+        <item name="TY">TY</item>
+        <item name="LY">LY</item>
     </array>
     <array name="div">
         <item name="A">A</item>
         <item name="B">B</item>
+    </array>
+    <array name="sem">
+        <item name="EVEN">EVEN</item>
+        <item name="ODD">ODD</item>
     </array>
 </resources>

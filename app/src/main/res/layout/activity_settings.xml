@@ -62,13 +62,24 @@
             android:textSize="16sp"
             android:textColor="@color/textColorPrimary"/>
 
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/changePassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@id/name"
+            android:text="Change Password"
+            android:textColor="@color/colorAccent"
+            android:textSize="14sp"
+            android:onClick="changePassword"/>
+
         <TextView
             android:id="@+id/branchLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:layout_below="@id/name"
-            android:layout_marginTop="8dp"
+            android:layout_below="@id/changePassword"
+            android:layout_marginTop="4dp"
             android:text="Branch"
             android:textSize="16sp"
             android:textColor="@color/cardTextColor"/>
@@ -89,7 +100,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_below="@id/branch"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
             android:text="Year"
             android:textSize="16sp"
             android:textColor="@color/cardTextColor"/>
@@ -109,7 +120,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/branch"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
             android:layout_marginStart="20dp"
             android:layout_toEndOf="@id/year"
             android:text="Division"
@@ -120,9 +131,31 @@
             android:id="@+id/div"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/yearLabel"
+            android:layout_below="@id/divLabel"
             android:layout_alignStart="@id/divLabel"
             android:entries="@array/div"
+            android:textSize="16sp"
+            android:textColor="@color/textColorPrimary" />
+
+        <TextView
+            android:id="@+id/semLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/branch"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@id/div"
+            android:text="Sem"
+            android:textSize="16sp"
+            android:textColor="@color/cardTextColor"/>
+
+        <Spinner
+            android:id="@+id/sem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/semLabel"
+            android:layout_alignStart="@id/semLabel"
+            android:entries="@array/sem"
             android:textSize="16sp"
             android:textColor="@color/textColorPrimary" />
 
@@ -138,7 +171,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_below="@id/prefDivider"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:text="PREFERENCES"
             android:textSize="14sp"
             android:textStyle="bold"
@@ -149,7 +182,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/prefSettingsLabel"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="5dp"
             android:text="Notifications"
             android:textColor="@color/textColorPrimary"
             android:textSize="16sp" />
@@ -172,5 +205,18 @@
             android:layout_alignEnd="@+id/notificationLabel"
             android:layout_alignParentEnd="true" />
     </RelativeLayout>
+
+    <TextView
+        android:id="@+id/signOut"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:padding="12dp"
+        android:background="@color/colorPrimary"
+        android:text="SIGN OUT"
+        android:textSize="16sp"
+        android:textColor="@color/colorAccent"
+        android:textAlignment="center"
+        android:onClick="signOut"/>
 
 </RelativeLayout>

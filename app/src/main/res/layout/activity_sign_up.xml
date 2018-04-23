@@ -22,61 +22,120 @@
         android:fontFamily="sans-serif-condensed"
         android:text="SIGN UP"
         android:textColor="@color/page_header_title"
-        android:textSize="36sp"
+        android:textSize="32sp"
         android:textStyle="bold" />
 
-    <EditText
-        android:id="@+id/email"
+    <LinearLayout
+        android:id="@+id/signUpLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/BlueEditText"
-        android:inputType="textEmailAddress"
         android:layout_below="@id/page_header_title"
-        android:layout_marginTop="16dp"
-        android:hint="Somaiya email id"/>
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:orientation="vertical"
+        android:visibility="visible">
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/BlueEditText"
+            android:inputType="textEmailAddress"
+            android:layout_marginTop="10dp"
+            android:hint="Somaiya email id"/>
 
-    <EditText
-        android:id="@+id/pass"
+        <EditText
+            android:id="@+id/pass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/BlueEditText"
+            android:inputType="textPassword"
+            android:layout_marginTop="10dp"
+            android:hint="Password"/>
+
+        <EditText
+            android:id="@+id/cpass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/BlueEditText"
+            android:inputType="textPassword"
+            android:layout_marginTop="10dp"
+            android:hint="Confirm Password"/>
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/signUpButton"
+            style="@style/BlueButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:text="SIGN UP"
+            android:onClick="signUp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/verifyOTPLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/BlueEditText"
-        android:inputType="textPassword"
-        android:layout_below="@id/email"
-        android:layout_marginTop="12dp"
-        android:hint="Password"/>
+        android:layout_below="@id/page_header_title"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:orientation="vertical"
+        android:visibility="gone">
+        <TextView
+            android:id="@+id/chosenEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorAccent"
+            android:layout_marginTop="10dp"
+            android:text="abc@somaiya.edu"
+            android:textSize="18sp"
+            android:textAlignment="center"/>
 
-    <EditText
-        android:id="@+id/cpass"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/BlueEditText"
-        android:inputType="textPassword"
-        android:layout_below="@id/pass"
-        android:layout_marginTop="12dp"
-        android:hint="Confirm Password"/>
+        <EditText
+            android:id="@+id/verifyOTP"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/BlueEditText"
+            android:inputType="textEmailAddress"
+            android:hint="e.g: 1234"/>
 
-    <android.support.v7.widget.AppCompatButton
-        android:id="@+id/signUpButton"
-        style="@style/BlueButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/cpass"
-        android:layout_marginTop="12dp"
-        android:layout_marginStart="12dp"
-        android:text="SIGN UP"
-        android:onClick="signUp"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:layout_gravity="center">
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/verifyOTPButton"
+                style="@style/BlueButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Verify OTP"
+                android:onClick="verifyOTP"/>
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/tryAgain"
+                style="@style/BlueButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="TRY AGAIN"
+                android:onClick="trySignUpAgain"/>
+        </LinearLayout>
+    </LinearLayout>
 
     <TextView
         android:id="@+id/sign_in"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="10dp"
         android:fontFamily="sans-serif-condensed"
         android:textStyle="bold"
         android:text="Sign In"
         android:textColor="@color/colorAccent"
-        android:textSize="24sp"
+        android:textSize="20sp"
         android:layout_centerHorizontal="true"
         android:onClick="signIn"/>
 
@@ -87,19 +146,19 @@
         android:layout_above="@id/sign_in"
         android:text="Already have an account?"
         android:textColor="@color/page_header_title"
-        android:textSize="20sp"
+        android:textSize="16sp"
         android:layout_centerHorizontal="true" />
 
     <TextView
         android:id="@+id/error"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/signUpButton"
-        android:layout_marginTop="12dp"
-        android:layout_marginStart="12dp"
+        android:layout_margin="10dp"
+        android:layout_above="@id/already_account_label"
+        android:layout_centerHorizontal="true"
         android:text="* Account already exists, Try logging in"
         android:textColor="@color/red"
-        android:textSize="20sp"
+        android:textSize="16sp"
         android:visibility="gone"/>
 
 </RelativeLayout>
