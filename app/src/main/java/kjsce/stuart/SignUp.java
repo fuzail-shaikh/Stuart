@@ -41,7 +41,18 @@ public class SignUp extends AppCompatActivity {
     }
 
     public void signUp(View view){
-        if(pass.getText().toString().equals(cpass.getText().toString())){
+        if(!email.getText().toString().endsWith("@somaiya.edu")){
+            final TextView error = findViewById(R.id.error);
+            error.setText("* Only Somaiya account allowed");
+            error.setVisibility(View.VISIBLE);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    error.setVisibility(View.GONE);
+                }
+            }, 5000);
+        }
+        else if(pass.getText().toString().equals(cpass.getText().toString())){
             String url = "/accounts?operation=signUp";
             url += "&email="+email.getText().toString();
             url += "&password="+pass.getText().toString();

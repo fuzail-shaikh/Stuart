@@ -33,7 +33,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
 
     ChatAdapter(Context c){
         context = c;
-        prefs = context.getSharedPreferences("STUART", Context.MODE_PRIVATE);
+        prefs = context.getSharedPreferences("Stuart", Context.MODE_PRIVATE);
         cards = new ArrayList<>();
         cards.add(new ChatCard("Hi "+prefs.getString("NAME", "")+", what can I do for you?", "text", false));
         sessionID = new Random().nextInt(9999999)+1;

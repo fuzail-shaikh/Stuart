@@ -120,6 +120,8 @@ public class Settings extends AppCompatActivity {
 
     public void signOut(View view) {
         editor.putBoolean("LOGGED_IN", false);
+        editor.putString("NAME", "");
+        editor.putString("EMAIL", "");
         editor.apply();
         finish();
     }

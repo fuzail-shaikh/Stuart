@@ -42,6 +42,7 @@ public class SignIn extends AppCompatActivity {
                 if(responseString.equalsIgnoreCase("ACK")){
                     SharedPreferences preferences = getSharedPreferences("Stuart", MODE_PRIVATE);
                     SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString("EMAIL", email.getText().toString());
                     editor.putBoolean("LOGGED_IN", true);
                     editor.apply();
                     Intent startApp = new Intent(SignIn.this, MainActivity.class);
