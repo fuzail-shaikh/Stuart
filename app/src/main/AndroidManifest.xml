@@ -53,6 +53,15 @@
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.ActionBar" />
 
+        <provider
+            android:name=".GenericFileProvider"
+            android:authorities="${applicationId}.file.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"/>
+        </provider>
     </application>
 
 </manifest>

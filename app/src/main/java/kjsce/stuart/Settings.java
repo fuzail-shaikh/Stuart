@@ -1,16 +1,21 @@
 package kjsce.stuart;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SwitchCompat;
+import android.text.InputType;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -104,10 +109,7 @@ public class Settings extends AppCompatActivity {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                if(responseString.equalsIgnoreCase("ACK")){
-                    Log.d("SETTINGS", "Account updated");
-                }
-                else{
+                if(!responseString.equalsIgnoreCase("ACK")){
                     Toast.makeText(Settings.this, "Problem updating account", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -115,13 +117,84 @@ public class Settings extends AppCompatActivity {
     }
 
     public void changePassword(View view) {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(Settings.this);
+        alertDialog.setTitle("Change Password");
 
+        LinearLayout dialogLayout = new LinearLayout(Settings.this);
+        dialogLayout.setOrientation(LinearLayout.VERTICAL);
+        LinearLayout.LayoutParams layoutParamsLabel = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+        layoutParamsLabel.setMargins((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,15, getResources().getDisplayMetrics()),
+                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,12, getResources().getDisplayMetrics()),
+                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,1, getResources().getDisplayMetrics()),
+                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,1, getResources().getDisplayMetrics()));
+
+        LinearLayout.LayoutParams layoutParamsEditText = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+        layoutParamsEditText.setMargins((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,15, getResources().getDisplayMetrics()),
+                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,1, getResources().getDisplayMetrics()),
+                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,15, getResources().getDisplayMetrics()),
+                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,1, getResources().getDisplayMetrics()));
+
+        final TextView oldPassLabel = new TextView(Settings.this);
+        final EditText oldPassword = new EditText(Settings.this);
+        oldPassLabel.setText("Old Password:");
+        oldPassLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+        oldPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        oldPassLabel.setLayoutParams(layoutParamsLabel);
+        oldPassword.setLayoutParams(layoutParamsEditText);
+        dialogLayout.addView(oldPassLabel);
+        dialogLayout.addView(oldPassword);
+
+        final TextView newPassLabel = new TextView(Settings.this);
+        final EditText newPassword = new EditText(Settings.this);
+        newPassLabel.setText("New Password:");
+        newPassLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+        newPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        newPassLabel.setLayoutParams(layoutParamsLabel);
+        newPassword.setLayoutParams(layoutParamsEditText);
+        dialogLayout.addView(newPassLabel);
+        dialogLayout.addView(newPassword);
+        alertDialog.setView(dialogLayout);
+
+        alertDialog.setPositiveButton("Update Password", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String url = "/accounts?operation=changePassword";
+                url += "&email="+email.getText().toString();
+                url += "&oldPassword="+oldPassword.getText().toString();
+                url += "&newPassword="+newPassword.getText().toString();
+                new AsyncHttpClient().get(getString(R.string.server)+url, new TextHttpResponseHandler() {
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                        Log.d("SETTINGS", responseString);
+                    }
+
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                        if(responseString.equalsIgnoreCase("ACK")){
+                            Toast.makeText(Settings.this, "Password changed", Toast.LENGTH_SHORT).show();
+                        }
+                        else if(responseString.equalsIgnoreCase("INCORRECT_PASSWORD")){
+                            Toast.makeText(Settings.this, "Incorrect password entered", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+        });
+    alertDialog.show();
     }
 
     public void signOut(View view) {
         editor.putBoolean("LOGGED_IN", false);
         editor.putString("NAME", "");
         editor.putString("EMAIL", "");
+        editor.putString("BRANCH", "");
+        editor.putString("YEAR", "");
+        editor.putString("DIV", "");
+        editor.putString("SEM", "");
         editor.apply();
         finish();
     }

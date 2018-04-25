@@ -14,6 +14,9 @@ import android.widget.Toast;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.TextHttpResponseHandler;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import cz.msebera.android.httpclient.Header;
 
 public class SignIn extends AppCompatActivity {
@@ -39,34 +42,45 @@ public class SignIn extends AppCompatActivity {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                if(responseString.equalsIgnoreCase("ACK")){
-                    SharedPreferences preferences = getSharedPreferences("Stuart", MODE_PRIVATE);
-                    SharedPreferences.Editor editor = preferences.edit();
-                    editor.putString("EMAIL", email.getText().toString());
-                    editor.putBoolean("LOGGED_IN", true);
-                    editor.apply();
-                    Intent startApp = new Intent(SignIn.this, MainActivity.class);
-                    startActivity(startApp);
-                    finish();
-                }
-                else{
-                    final TextView error = findViewById(R.id.error);
-                    if(responseString.equalsIgnoreCase("NO_ACCOUNT")){
-                        error.setText("* Account does not exist, Sign up");
-                    }
-                    else if(responseString.equalsIgnoreCase("WRONG_PASSWORD")){
-                        error.setText("* Please check your password");
+                try {
+                    JSONObject responseObject = new JSONObject(responseString);
+                    String response = responseObject.getString("response");
+                    if(response.equalsIgnoreCase("ACK")){
+                        SharedPreferences preferences = getSharedPreferences("Stuart", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putString("NAME", responseObject.getString("name"));
+                        editor.putString("EMAIL", responseObject.getString("email"));
+                        editor.putString("BRANCH", responseObject.getString("branch"));
+                        editor.putString("YEAR", responseObject.getString("year"));
+                        editor.putString("SEM", responseObject.getString("sem"));
+                        editor.putString("DIV", responseObject.getString("div"));
+                        editor.putBoolean("LOGGED_IN", true);
+                        editor.apply();
+                        Intent startApp = new Intent(SignIn.this, MainActivity.class);
+                        startActivity(startApp);
+                        finish();
                     }
                     else{
-                        error.setText(responseString);
-                    }
-                    error.setVisibility(View.VISIBLE);
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            error.setVisibility(View.GONE);
+                        final TextView error = findViewById(R.id.error);
+                        if(response.equalsIgnoreCase("NO_ACCOUNT")){
+                            error.setText("* Account does not exist, Sign up");
                         }
-                    }, 5000);
+                        else if(response.equalsIgnoreCase("WRONG_PASSWORD")){
+                            error.setText("* Please check your password");
+                        }
+                        else{
+                            error.setText(response);
+                        }
+                        error.setVisibility(View.VISIBLE);
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                error.setVisibility(View.GONE);
+                            }
+                        }, 5000);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
             }
         });
