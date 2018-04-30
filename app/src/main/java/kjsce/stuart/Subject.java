@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 public class Subject extends AppCompatActivity {
+    private String subjectID;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -14,8 +15,8 @@ public class Subject extends AppCompatActivity {
 
         if(getSupportActionBar()!=null){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            String title = getIntent().getExtras().getString("SUBJECT_NAME");
-            getSupportActionBar().setTitle(title);
+            subjectID = getIntent().getExtras().getString("SUBJECT_ID");
+            getSupportActionBar().setTitle(subjectID);
         }
     }
 

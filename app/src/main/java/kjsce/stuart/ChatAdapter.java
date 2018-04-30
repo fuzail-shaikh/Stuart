@@ -42,21 +42,21 @@ import cz.msebera.android.httpclient.Header;
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder>{
     private List<ChatCard> cards;
     private Context context;
-    private SharedPreferences prefs;
-    private String server = null;
+    private String server;
     private int sessionID;
 
     ChatAdapter(Context c){
         context = c;
         server = context.getString(R.string.server);
-        prefs = context.getSharedPreferences("Stuart", Context.MODE_PRIVATE);
+        SharedPreferences prefs = context.getSharedPreferences("Stuart", Context.MODE_PRIVATE);
         cards = new ArrayList<>();
-        cards.add(new ChatCard("Hi "+prefs.getString("NAME", "")+", what can I do for you?", "text", false));
+        cards.add(new ChatCard("Hi "+ prefs.getString("NAME", "")+", what can I do for you?", "text", false));
+        notifyDataSetChanged();
         sessionID = new Random().nextInt(9999999)+1;
     }
 
-    void addMessage(String msg, String type, boolean myMessage){
-        cards.add(new ChatCard(msg, type, myMessage));
+    void addMessage(String msg){
+        cards.add(new ChatCard(msg, "text", true));
         notifyDataSetChanged();
         String url = "/chatbot?msg="+msg;
         url += "&sessionID="+sessionID;
@@ -74,7 +74,6 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
                     String message = res.getString("text");
                     if(messageType.equalsIgnoreCase("FACULTY")){
                         cards.add(new ChatCard(message, messageType, false));
-                        notifyDataSetChanged();
                         message = "NAME: "+res.getString("name");
                         message += "\nEMAIL: "+res.getString("email");
                         message += "\nBRANCH: "+res.getString("branch");
@@ -121,7 +120,16 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull final ChatViewHolder holder, final int position) {
-        if(!cards.get(holder.getAdapterPosition()).myMessage){
+        holder.msg.setText(cards.get(position).msg);
+        if(cards.get(position).myMessage){
+            holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.cardBackground));
+            holder.msg.setTextColor(context.getResources().getColor(R.color.cardTextColor));
+            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)holder.cardView.getLayoutParams();
+            params.removeRule(RelativeLayout.ALIGN_PARENT_START);
+            params.addRule(RelativeLayout.ALIGN_PARENT_END);
+            holder.cardView.setLayoutParams(params);
+        }
+        else{
             holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.colorAccent));
             holder.msg.setTextColor(context.getResources().getColor(R.color.colorPrimary));
             RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)holder.cardView.getLayoutParams();
@@ -129,13 +137,20 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
             params.removeRule(RelativeLayout.ALIGN_PARENT_END);
             holder.cardView.setLayoutParams(params);
         }
-        if(cards.get(holder.getAdapterPosition()).type.equalsIgnoreCase("EVENT") ||
-                cards.get(holder.getAdapterPosition()).type.equalsIgnoreCase("LOCATION")){
-            holder.image.setVisibility(View.VISIBLE);
-            new ImageLoadTask(cards.get(holder.getAdapterPosition()).path, holder.image).execute();
+
+        if(cards.get(position).type.equalsIgnoreCase("TEXT")){
+            holder.image.setVisibility(View.GONE);
+            holder.fileOpenText.setVisibility(View.GONE);
         }
-        else if(cards.get(holder.getAdapterPosition()).type.equalsIgnoreCase("WRITEUP")){
+        else if(cards.get(position).type.equalsIgnoreCase("EVENT") ||
+                cards.get(position).type.equalsIgnoreCase("LOCATION")){
+            holder.image.setVisibility(View.VISIBLE);
+            holder.fileOpenText.setVisibility(View.GONE);
+            new ImageLoadTask(cards.get(position).path, holder.image).execute();
+        }
+        else if(cards.get(position).type.equalsIgnoreCase("WRITEUP")){
             holder.fileOpenText.setText("Click here to view file");
+            holder.image.setVisibility(View.GONE);
             holder.fileOpenText.setVisibility(View.VISIBLE);
             holder.fileOpenText.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -159,7 +174,6 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
                 }
             });
         }
-        holder.msg.setText(cards.get(holder.getAdapterPosition()).msg);
     }
 
     static class ImageLoadTask extends AsyncTask<Void, Void, Bitmap> {

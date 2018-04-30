@@ -26,11 +26,6 @@ public class Courses extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         layout = getActivity().findViewById(R.id.coursesLayout);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
         if(recyclerView!=null){
             layout.removeView(recyclerView);
         }

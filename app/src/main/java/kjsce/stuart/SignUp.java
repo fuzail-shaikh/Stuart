@@ -125,6 +125,10 @@ public class SignUp extends AppCompatActivity {
                     editor.putBoolean("OTP_REQUIRED", false);
                     editor.putBoolean("ACCOUNT_DETAILS_REQUIRED", true);
                     editor.putBoolean("LOGGED_IN", true);
+                    editor.putString("BRANCH", "Information Technology");
+                    editor.putString("YEAR", "LY");
+                    editor.putString("DIV", "A");
+                    editor.putString("SEM", "EVEN");
                     editor.apply();
                     Intent startApp = new Intent(SignUp.this, MainActivity.class);
                     startActivity(startApp);

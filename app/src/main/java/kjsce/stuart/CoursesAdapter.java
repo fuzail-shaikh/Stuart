@@ -1,17 +1,30 @@
 package kjsce.stuart;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.TextHttpResponseHandler;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+
+import cz.msebera.android.httpclient.Header;
 
 /**
  * Created by Fuzail Shaikh on 14-Mar-18.
@@ -23,25 +36,41 @@ public class CoursesAdapter extends RecyclerView.Adapter<CoursesAdapter.CoursesV
 
     CoursesAdapter(FragmentActivity fragmentActivity){
         this.fragmentActivity = fragmentActivity;
+        int sessionID = new Random().nextInt(9999999) + 1;
+        String server = fragmentActivity.getString(R.string.server);
+        SharedPreferences preferences = fragmentActivity.getSharedPreferences("Stuart", Context.MODE_PRIVATE);
         cards = new ArrayList<>();
 
-        String id="CC", title="Cloud Computing", faculty="Purnima Ahirao";
-        int writeupCount = 8;
-        cards.add(new CourseCard(id,title,faculty,writeupCount));
-        id="SC";
-        title="Soft Computing";
-        faculty="Sonali Patil";
-        cards.add(new CourseCard(id,title,faculty,writeupCount));
-        id="SPM";
-        title="Software Project Management";
-        faculty="Khushi Khanchandani";
-        writeupCount = 5;
-        cards.add(new CourseCard(id,title,faculty,writeupCount));
-        id="DM";
-        title="Digital Marketing";
-        faculty="Era Johri";
-        writeupCount = 8;
-        cards.add(new CourseCard(id,title,faculty,writeupCount));
+        // Get courses from server
+        String url = "/courses?sessionID="+sessionID+"&operation=getCourseList";
+        url += "&branch="+ preferences.getString("BRANCH", "Information Technology");
+        url += "&year="+ preferences.getString("YEAR", "LY");
+        url += "&sem="+ preferences.getString("SEM", "EVEN");
+
+        new AsyncHttpClient().get(server +url, new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                Log.d("COURSES", responseString);
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                Log.d("COURSES", responseString);
+                try {
+                    JSONArray subjectsArray = new JSONArray(responseString);
+                    for(int i=0; i<subjectsArray.length(); i++){
+                        JSONObject subject = subjectsArray.getJSONObject(i);
+                        cards.add(new CourseCard(subject.getString("subj_code"),
+                                subject.getString("subj_name"),
+                                subject.getString("subj_type").toUpperCase(),
+                                subject.getJSONArray("experiments").length()));
+                    }
+                    notifyDataSetChanged();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     @Override
@@ -52,30 +81,30 @@ public class CoursesAdapter extends RecyclerView.Adapter<CoursesAdapter.CoursesV
 
     @Override
     public void onBindViewHolder(final CoursesViewHolder holder, final int position) {
-        holder.title.setText(cards.get(position).title);
-        holder.faculty.setText(cards.get(position).faculty);
+        holder.name.setText(cards.get(position).name);
+        holder.type.setText(cards.get(position).type);
         holder.writeupCount.setText(String.valueOf(cards.get(position).writeupCount));
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent subjectIntent = new Intent(fragmentActivity, Subject.class);
-                subjectIntent.putExtra("SUBJECT_NAME", cards.get(holder.getAdapterPosition())._id);
+                subjectIntent.putExtra("SUBJECT_ID", cards.get(holder.getAdapterPosition())._id);
                 v.getContext().startActivity(subjectIntent);
             }
         });
     }
 
-    public static class CoursesViewHolder extends RecyclerView.ViewHolder {
+    static class CoursesViewHolder extends RecyclerView.ViewHolder {
         CardView cardView;
         RelativeLayout layout;
-        TextView title, faculty, writeupCount;
+        TextView name, type, writeupCount;
 
         CoursesViewHolder(View itemView) {
             super(itemView);
             cardView = itemView.findViewById(R.id.courseCard);
             layout = itemView.findViewById(R.id.courseCardLayout);
-            title = itemView.findViewById(R.id.title);
-            faculty = itemView.findViewById(R.id.faculty);
+            name = itemView.findViewById(R.id.name);
+            type = itemView.findViewById(R.id.type);
             writeupCount = itemView.findViewById(R.id.writeupCount);
         }
     }
@@ -86,13 +115,13 @@ public class CoursesAdapter extends RecyclerView.Adapter<CoursesAdapter.CoursesV
     }
 
     class CourseCard {
-        String _id, title, faculty;
+        String _id, name, type;
         int writeupCount;
 
-        CourseCard(String _id, String title, String faculty, int writeupCount) {
+        CourseCard(String _id, String name, String type, int writeupCount) {
             this._id = _id;
-            this.title = title;
-            this.faculty = faculty;
+            this.name = name;
+            this.type = type;
             this.writeupCount = writeupCount;
         }
     }

@@ -24,25 +24,7 @@ public class Chat extends AppCompatActivity {
         layout = findViewById(R.id.messagesLayout);
         if(getSupportActionBar()!=null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == android.R.id.home){
-            finish();
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    public void sendMessage(View view) {
-        TextView message = findViewById(R.id.messageBox);
-        recyclerAdapter.addMessage(message.getText().toString(), "text", true);
-        message.setText("");
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
         if(recyclerView!=null){
             layout.removeView(recyclerView);
         }
@@ -60,5 +42,19 @@ public class Chat extends AppCompatActivity {
 
         recyclerAdapter = new ChatAdapter(getApplicationContext());
         recyclerView.setAdapter(recyclerAdapter);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == android.R.id.home){
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void sendMessage(View view) {
+        TextView message = findViewById(R.id.messageBox);
+        recyclerAdapter.addMessage(message.getText().toString());
+        message.setText("");
     }
 }
