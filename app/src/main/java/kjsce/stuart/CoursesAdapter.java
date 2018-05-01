@@ -22,7 +22,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -36,13 +35,12 @@ public class CoursesAdapter extends RecyclerView.Adapter<CoursesAdapter.CoursesV
 
     CoursesAdapter(FragmentActivity fragmentActivity){
         this.fragmentActivity = fragmentActivity;
-        int sessionID = new Random().nextInt(9999999) + 1;
         String server = fragmentActivity.getString(R.string.server);
         SharedPreferences preferences = fragmentActivity.getSharedPreferences("Stuart", Context.MODE_PRIVATE);
         cards = new ArrayList<>();
 
         // Get courses from server
-        String url = "/courses?sessionID="+sessionID+"&operation=getCourseList";
+        String url = "/courses?operation=getSubjectList";
         url += "&branch="+ preferences.getString("BRANCH", "Information Technology");
         url += "&year="+ preferences.getString("YEAR", "LY");
         url += "&sem="+ preferences.getString("SEM", "EVEN");
@@ -55,7 +53,6 @@ public class CoursesAdapter extends RecyclerView.Adapter<CoursesAdapter.CoursesV
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                Log.d("COURSES", responseString);
                 try {
                     JSONArray subjectsArray = new JSONArray(responseString);
                     for(int i=0; i<subjectsArray.length(); i++){

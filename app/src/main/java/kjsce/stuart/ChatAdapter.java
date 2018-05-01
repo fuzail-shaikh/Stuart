@@ -91,13 +91,13 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
                         message += "\nFROM: "+res.getString("startDate");
                         message += "\nTILL: "+res.getString("endDate");
                         message += "\nLOCATION: "+res.getString("location");
-                        cards.add(new ChatCard(message, messageType, server+"/files/"+res.getString("imagePath"), false));
+                        cards.add(new ChatCard(message, messageType, server+"/images/"+res.getString("imagePath"), false));
                         notifyDataSetChanged();
                     }
                     else if(messageType.equalsIgnoreCase("LOCATION")){
                         message += "\nNAME: "+res.getString("name");
                         message += "\nADDRESS: "+res.getString("address");
-                        cards.add(new ChatCard(message, messageType, server+"/files/"+res.getString("imagePath"), false));
+                        cards.add(new ChatCard(message, messageType, server+"/images/"+res.getString("imagePath"), false));
                         notifyDataSetChanged();
                     }
                     else{
