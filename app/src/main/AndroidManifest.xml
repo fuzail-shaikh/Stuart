@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
@@ -25,28 +25,26 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
             android:parentActivityName=".Splash" />
-        <activity android:name=".SignUp"
-            android:theme="@style/AppTheme.NoActionBar.FullScreen"
-            android:parentActivityName=".Splash"/>
-        <activity android:name=".SignIn"
-            android:theme="@style/AppTheme.NoActionBar.FullScreen"
-            android:parentActivityName=".Splash"/>
-
+        <activity
+            android:name=".SignUp"
+            android:parentActivityName=".Splash"
+            android:theme="@style/AppTheme.NoActionBar.FullScreen" />
+        <activity
+            android:name=".SignIn"
+            android:parentActivityName=".Splash"
+            android:theme="@style/AppTheme.NoActionBar.FullScreen" />
         <activity
             android:name=".Chat"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.ActionBar" />
-
         <activity
             android:name=".Subject"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.ActionBar" />
-
         <activity
             android:name=".Settings"
             android:label="@string/settings"
@@ -60,8 +58,10 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths"/>
+                android:resource="@xml/provider_paths" />
         </provider>
+
+        <activity android:name=".Help"></activity>
     </application>
 
 </manifest>

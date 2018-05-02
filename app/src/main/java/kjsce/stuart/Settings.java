@@ -2,6 +2,7 @@ package kjsce.stuart;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -29,7 +30,7 @@ public class Settings extends AppCompatActivity {
     private SharedPreferences prefs;
     private TextView email;
     private EditText name;
-    private Spinner branch, year, div, sem;
+    private Spinner branch, year, div, sem, batch;
     private SwitchCompat notificationSwitch;
 
     @Override
@@ -47,6 +48,7 @@ public class Settings extends AppCompatActivity {
         year = findViewById(R.id.year);
         div = findViewById(R.id.div);
         sem = findViewById(R.id.sem);
+        batch = findViewById(R.id.batch);
         notificationSwitch = findViewById(R.id.notification);
 
         name.setText(prefs.getString("NAME",""));
@@ -55,6 +57,7 @@ public class Settings extends AppCompatActivity {
         year.setSelection(getSpinnerPositionByValue(year, prefs.getString("YEAR","LY")));
         div.setSelection(getSpinnerPositionByValue(div, prefs.getString("DIV","A")));
         sem.setSelection(getSpinnerPositionByValue(sem, prefs.getString("SEM","EVEN")));
+        batch.setSelection(getSpinnerPositionByValue(batch, prefs.getString("BATCH","1")));
         if(prefs.getBoolean("NOTIFICATION",false)){
             notificationSwitch.setChecked(true);
         }
@@ -78,6 +81,7 @@ public class Settings extends AppCompatActivity {
             editor.putString("YEAR", year.getSelectedItem().toString());
             editor.putString("DIV", div.getSelectedItem().toString());
             editor.putString("SEM", sem.getSelectedItem().toString());
+            editor.putString("BATCH", batch.getSelectedItem().toString());
             editor.putBoolean("NOTIFICATION", notificationSwitch.isChecked());
             editor.apply();
 
@@ -88,6 +92,7 @@ public class Settings extends AppCompatActivity {
             url += "&year="+year.getSelectedItem().toString();
             url += "&div="+div.getSelectedItem().toString();
             url += "&sem="+sem.getSelectedItem().toString();
+            url += "&batch="+batch.getSelectedItem().toString();
             new AsyncHttpClient().get(getString(R.string.server)+url, new TextHttpResponseHandler() {
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
@@ -103,6 +108,18 @@ public class Settings extends AppCompatActivity {
             });
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(prefs.getBoolean("ACCOUNT_DETAILS_REQUIRED", false)){
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putBoolean("ACCOUNT_DETAILS_REQUIRED", false);
+            editor.apply();
+            Intent intent = new Intent(Settings.this, Help.class);
+            startActivity(intent);
+        }
     }
 
     public void changePassword(View view) {
@@ -185,8 +202,14 @@ public class Settings extends AppCompatActivity {
         editor.putString("YEAR", "");
         editor.putString("DIV", "");
         editor.putString("SEM", "");
+        editor.putString("BATCH", "");
         editor.apply();
         finish();
+    }
+
+    public void help(View view){
+        Intent help = new Intent(Settings.this, Help.class);
+        startActivity(help);
     }
 
     private int getSpinnerPositionByValue(Spinner spinner, String myString){

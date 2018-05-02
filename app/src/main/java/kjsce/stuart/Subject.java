@@ -1,6 +1,7 @@
 package kjsce.stuart;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -18,6 +19,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Arrays;
+
 import cz.msebera.android.httpclient.Header;
 
 public class Subject extends AppCompatActivity {
@@ -27,7 +30,7 @@ public class Subject extends AppCompatActivity {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subject);
-        String server = getString(R.string.server);
+        final String server = getString(R.string.server);
         final ListView expListView = findViewById(R.id.expList);
 
         if(getSupportActionBar()!=null){
@@ -38,7 +41,7 @@ public class Subject extends AppCompatActivity {
 
         // Get courses from server
         String url = "/courses?operation=getSubjectDetails&subjectID="+subjectID;
-        new AsyncHttpClient().get(server +url, new TextHttpResponseHandler() {
+        new AsyncHttpClient().get(server+url, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 Log.d("SUBJECT", responseString);
@@ -55,6 +58,7 @@ public class Subject extends AppCompatActivity {
                         expList[i] = new Experiment(experiments.getJSONObject(i).getString("exp_no"),
                                 subjectID, experiments.getJSONObject(i).getString("exp_file"));
                     }
+                    Arrays.sort(expList);
 
                     final ArrayAdapter<Experiment> expAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1,
                             android.R.id.text1, expList);
@@ -63,7 +67,8 @@ public class Subject extends AppCompatActivity {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             Experiment exp = expAdapter.getItem(position);
-                            Toast.makeText(Subject.this, exp.toString(), Toast.LENGTH_SHORT).show();
+                            new DownloadFile().execute(server+"/files/"+exp.path, exp.toString());
+                            Toast.makeText(getApplicationContext(), exp.toString()+" downloading...", Toast.LENGTH_SHORT).show();
                         }
                     });
                 } catch (JSONException e) {
@@ -81,7 +86,7 @@ public class Subject extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    class Experiment
+    class Experiment implements Comparable<Experiment>
     {
         private String exp_no, subjectCode, path;
         Experiment(String exp_no, String subjectCode, String path){
@@ -90,13 +95,14 @@ public class Subject extends AppCompatActivity {
             this.path = path;
         }
 
-        String getPath(){
-            return path;
+        @Override
+        public String toString() {
+            return subjectCode+"_"+exp_no+".pdf";
         }
 
         @Override
-        public String toString() {
-            return subjectCode+"_"+exp_no;
+        public int compareTo(@NonNull Experiment exp) {
+            return exp_no.compareTo(exp.exp_no);
         }
     }
 }

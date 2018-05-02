@@ -129,6 +129,7 @@ public class SignUp extends AppCompatActivity {
                     editor.putString("YEAR", "LY");
                     editor.putString("DIV", "A");
                     editor.putString("SEM", "EVEN");
+                    editor.putString("BATCH", "4");
                     editor.apply();
                     Intent startApp = new Intent(SignUp.this, MainActivity.class);
                     startActivity(startApp);

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorAccent">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardBackgroundColor="#FFFFFFFF"
+        app:cardElevation="4dp"
+        app:cardCornerRadius="5dp"
+        android:layout_marginTop="75dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginBottom="60dp" >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="12dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="ASK FOR WRITE-UPS"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textColor="@color/textColorPrimary"
+                android:textAlignment="center"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="1. Open chatbot by clicking on fab."
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/cardTextColor"
+                android:textAlignment="center"/>
+            <android.support.design.widget.FloatingActionButton
+                android:theme="@style/Fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="6dp"
+                app:elevation="5dp"
+                android:src="@mipmap/fab_icon" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="2. Ask for a write-up of your subject"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/cardTextColor"
+                android:textAlignment="center"/>
+            <android.support.v7.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                app:cardCornerRadius="6dp"
+                app:cardUseCompatPadding="true"
+                app:cardBackgroundColor="@color/cardBackground">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxWidth="250dp"
+                        android:padding="10dp"
+                        android:text="get me write-up of AI"
+                        android:textSize="16sp"
+                        android:textColor="@color/cardTextColor"/>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="3. Tell the experiment number if needed"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/cardTextColor"
+                android:textAlignment="center"/>
+            <android.support.v7.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                app:cardCornerRadius="6dp"
+                app:cardUseCompatPadding="true"
+                app:cardBackgroundColor="@color/colorAccent">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxWidth="250dp"
+                        android:padding="10dp"
+                        android:text="Which experiment do you want?"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPrimary"/>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="4. You will get the write-up if it is available"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/cardTextColor"
+                android:textAlignment="center"/>
+            <android.support.v7.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                app:cardCornerRadius="6dp"
+                app:cardUseCompatPadding="true"
+                app:cardBackgroundColor="@color/colorAccent">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxWidth="250dp"
+                        android:padding="10dp"
+                        android:text="Got it, Here's EXP1 of AI"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPrimary"/>
+                    <TextView
+                        android:id="@+id/fileOpenText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxWidth="250dp"
+                        android:padding="6dp"
+                        android:background="@color/colorPrimary"
+                        android:text="Click to view "
+                        android:textAlignment="center"
+                        android:textSize="14sp"
+                        android:textColor="@color/colorAccent"/>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

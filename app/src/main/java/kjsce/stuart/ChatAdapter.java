@@ -50,7 +50,13 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
         server = context.getString(R.string.server);
         SharedPreferences prefs = context.getSharedPreferences("Stuart", Context.MODE_PRIVATE);
         cards = new ArrayList<>();
-        cards.add(new ChatCard("Hi "+ prefs.getString("NAME", "")+", what can I do for you?", "text", false));
+        String[] welcomeMessages = new String[]{
+                "Hi "+ prefs.getString("NAME", "")+", what can I do for you?",
+                "Hey "+ prefs.getString("NAME", "")+", this is Stuart. I can help you with information about the faculties, events, timetables and resources for your courses. Ask me anything :)",
+                "Hello "+prefs.getString("NAME", "")+", how can I help you today?"
+        };
+        String greeting = welcomeMessages[new Random().nextInt(welcomeMessages.length)];
+        cards.add(new ChatCard(greeting, "text", false));
         notifyDataSetChanged();
         sessionID = new Random().nextInt(9999999)+1;
     }

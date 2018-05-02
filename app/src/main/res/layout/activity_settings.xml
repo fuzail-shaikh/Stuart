@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_below="@id/nameLabel"
-            android:text="Fuzail Shaikh"
+            android:text=""
             android:textSize="16sp"
             android:textColor="@color/textColorPrimary"/>
 
@@ -94,76 +94,102 @@
             android:textSize="16sp"
             android:textColor="@color/textColorPrimary" />
 
-        <TextView
-            android:id="@+id/yearLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_below="@id/branch"
-            android:layout_marginTop="8dp"
-            android:text="Year"
-            android:textSize="16sp"
-            android:textColor="@color/cardTextColor"/>
-
-        <Spinner
-            android:id="@+id/year"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_below="@id/yearLabel"
-            android:entries="@array/year"
-            android:textSize="16sp"
-            android:textColor="@color/textColorPrimary" />
-
-        <TextView
-            android:id="@+id/divLabel"
+        <RelativeLayout
+            android:id="@+id/yearAndDiv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/branch"
             android:layout_marginTop="8dp"
-            android:layout_marginStart="20dp"
-            android:layout_toEndOf="@id/year"
-            android:text="Division"
-            android:textSize="16sp"
-            android:textColor="@color/cardTextColor"/>
+            android:layout_centerHorizontal="true">
+            <TextView
+                android:id="@+id/yearLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Year"
+                android:textSize="16sp"
+                android:textColor="@color/cardTextColor"/>
 
-        <Spinner
-            android:id="@+id/div"
+            <Spinner
+                android:id="@+id/year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/yearLabel"
+                android:entries="@array/year"
+                android:textSize="16sp"
+                android:textColor="@color/textColorPrimary" />
+
+            <TextView
+                android:id="@+id/divLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="60dp"
+                android:layout_toEndOf="@id/year"
+                android:text="Division"
+                android:textSize="16sp"
+                android:textColor="@color/cardTextColor"/>
+
+            <Spinner
+                android:id="@+id/div"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/divLabel"
+                android:layout_alignStart="@id/divLabel"
+                android:entries="@array/div"
+                android:textSize="16sp"
+                android:textColor="@color/textColorPrimary" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/semAndBatch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/divLabel"
-            android:layout_alignStart="@id/divLabel"
-            android:entries="@array/div"
-            android:textSize="16sp"
-            android:textColor="@color/textColorPrimary" />
-
-        <TextView
-            android:id="@+id/semLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/branch"
+            android:layout_below="@id/yearAndDiv"
             android:layout_marginTop="8dp"
-            android:layout_marginStart="20dp"
-            android:layout_toEndOf="@id/div"
-            android:text="Sem"
-            android:textSize="16sp"
-            android:textColor="@color/cardTextColor"/>
+            android:layout_centerHorizontal="true">
+            <TextView
+                android:id="@+id/semLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Semester"
+                android:textSize="16sp"
+                android:textColor="@color/cardTextColor"/>
 
-        <Spinner
-            android:id="@+id/sem"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/semLabel"
-            android:layout_alignStart="@id/semLabel"
-            android:entries="@array/sem"
-            android:textSize="16sp"
-            android:textColor="@color/textColorPrimary" />
+            <Spinner
+                android:id="@+id/sem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/semLabel"
+                android:layout_alignStart="@id/semLabel"
+                android:entries="@array/sem"
+                android:textSize="16sp"
+                android:textColor="@color/textColorPrimary" />
+
+            <TextView
+                android:id="@+id/batchLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="60dp"
+                android:layout_toEndOf="@id/sem"
+                android:text="Batch"
+                android:textSize="16sp"
+                android:textColor="@color/cardTextColor"/>
+
+            <Spinner
+                android:id="@+id/batch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/batchLabel"
+                android:layout_alignStart="@id/batchLabel"
+                android:entries="@array/batch"
+                android:textSize="16sp"
+                android:textColor="@color/textColorPrimary" />
+        </RelativeLayout>
 
         <View
             android:id="@+id/prefDivider"
             style="@style/Divider"
             android:layout_marginTop="8dp"
-            android:layout_below="@id/year"/>
+            android:layout_below="@id/semAndBatch"/>
 
         <TextView
             android:id="@+id/prefSettingsLabel"
@@ -171,7 +197,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_below="@id/prefDivider"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
             android:text="PREFERENCES"
             android:textSize="14sp"
             android:textStyle="bold"
@@ -206,17 +232,29 @@
             android:layout_alignParentEnd="true" />
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/signOut"
-        android:layout_width="match_parent"
+    <GridLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:padding="12dp"
-        android:background="@color/colorPrimary"
-        android:text="SIGN OUT"
-        android:textSize="16sp"
-        android:textColor="@color/colorAccent"
-        android:textAlignment="center"
-        android:onClick="signOut"/>
+        android:layout_marginBottom="10dp"
+        android:columnCount="2">
+        <Button
+            android:id="@+id/help"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:text="NEED HELP?"
+            android:textColor="@color/cardTextColor"
+            android:onClick="help"/>
+
+        <Button
+            android:id="@+id/signOut"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="SIGN OUT"
+            android:textColor="@color/colorAccent"
+            android:onClick="signOut"/>
+    </GridLayout>
 
 </RelativeLayout>

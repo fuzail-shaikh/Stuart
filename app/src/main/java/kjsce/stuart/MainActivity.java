@@ -109,9 +109,6 @@ public class MainActivity extends AppCompatActivity {
             finish();
         }
         else if(prefs.getBoolean("ACCOUNT_DETAILS_REQUIRED", false)){
-            SharedPreferences.Editor editor = prefs.edit();
-            editor.putBoolean("ACCOUNT_DETAILS_REQUIRED", false);
-            editor.apply();
             Intent intent = new Intent(MainActivity.this, Settings.class);
             startActivity(intent);
         }

@@ -54,6 +54,7 @@ public class SignIn extends AppCompatActivity {
                         editor.putString("YEAR", responseObject.getString("year"));
                         editor.putString("SEM", responseObject.getString("sem"));
                         editor.putString("DIV", responseObject.getString("div"));
+                        editor.putString("BATCH", responseObject.getString("batch"));
                         editor.putBoolean("LOGGED_IN", true);
                         editor.apply();
                         Intent startApp = new Intent(SignIn.this, MainActivity.class);
