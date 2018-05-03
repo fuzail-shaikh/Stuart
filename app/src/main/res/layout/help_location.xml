@@ -86,8 +86,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="180dp"
                         android:maxWidth="220dp"
-                        android:scaleType="centerCrop"
-                        android:src="@mipmap/audi"/>
+                        android:scaleType="centerCrop"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

@@ -33,12 +33,12 @@
             android:hint="Say something"
             android:textSize="18sp"/>
 
-        <ImageView
+        <Button
             android:id="@+id/sendButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="6dp"
-            android:src="@mipmap/send_button"
+            android:text="SEND"
             android:onClick="sendMessage"/>
     </LinearLayout>
 
