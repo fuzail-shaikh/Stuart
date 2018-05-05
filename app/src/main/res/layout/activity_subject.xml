@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     tools:context="kjsce.stuart.Subject">
 
     <RelativeLayout
@@ -29,34 +29,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/scheduleLabel" />
 
-        <View
-            android:id="@+id/expDivider"
-            style="@style/Divider"
-            android:layout_margin="8dp"
-            android:layout_below="@id/scheduleLayout"
-            android:visibility="gone"/>
-
-        <TextView
-            android:id="@+id/experimentsLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_below="@id/expDivider"
-            android:layout_margin="10dp"
-            android:text="EXPERIMENTS"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:textColor="@color/cardSubTextColor"
-            android:visibility="gone"/>
-
-        <ListView
-            android:id="@+id/expList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/experimentsLabel"
-            android:visibility="gone"/>
-
-
     </RelativeLayout>
 
-</android.support.v4.widget.NestedScrollView>
+</ScrollView>
