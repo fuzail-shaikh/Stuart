@@ -115,26 +115,28 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Schedu
                         String myBatch = preferences.getString("DIV", "A").concat(preferences.getString("BATCH","4"));
                         if(lab.getString("batch").equalsIgnoreCase(myBatch)){
                             cards.add(new ScheduleCard(currentClass.getString("start_time"),
-                                    currentClass.getString("end_time"),
-                                    lab.getString("subject"),
-                                    lab.getString("location"),
-                                    currentClass.getString("class_type"),
-                                    lab.getString("faculty")));
+                                    currentClass.getString("end_time"), lab.getString("subject"),
+                                    lab.getString("location"), "Practical", lab.getString("faculty")));
                             break;
                         }
                     }
                 }
                 else if(currentClass.getString("class_type").equalsIgnoreCase("lecture")){
-                    cards.add(new ScheduleCard(currentClass.getString("start_time"),
-                            currentClass.getString("end_time"),
-                            currentClass.getString("subject"),
-                            currentClass.getString("location"),
-                            currentClass.getString("class_type"),
-                            currentClass.getString("faculty")));
+                    cards.add(new ScheduleCard(currentClass.getString("start_time"), currentClass.getString("end_time"),
+                            currentClass.getString("subject"), currentClass.getString("location"),
+                            "Lecture", currentClass.getString("faculty")));
                 }
             }
         } catch (JSONException e) {
             e.printStackTrace();
+        }
+
+        TextView emptyText = fragmentActivity.findViewById(R.id.noClassesToday);
+        if(getItemCount()>0){
+            emptyText.setVisibility(View.GONE);
+        }
+        else {
+            emptyText.setVisibility(View.VISIBLE);
         }
         notifyDataSetChanged();
     }

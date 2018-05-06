@@ -26,6 +26,7 @@ import android.widget.Toast;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.TextHttpResponseHandler;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -44,11 +45,12 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
     private Context context;
     private String server;
     private int sessionID;
+    private SharedPreferences prefs;
 
     ChatAdapter(Context c){
         context = c;
         server = context.getString(R.string.server);
-        SharedPreferences prefs = context.getSharedPreferences("Stuart", Context.MODE_PRIVATE);
+        prefs = context.getSharedPreferences("Stuart", Context.MODE_PRIVATE);
         cards = new ArrayList<>();
         String[] welcomeMessages = new String[]{
                 "Hi "+ prefs.getString("NAME", "")+", what can I do for you?",
@@ -66,6 +68,10 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
         notifyDataSetChanged();
         String url = "/chatbot?msg="+msg;
         url += "&sessionID="+sessionID;
+        url += "&branch="+prefs.getString("BRANCH","Information Technology");
+        url += "&sem="+prefs.getString("SEM","EVEN");
+        url += "&year="+prefs.getString("YEAR","LY");
+        url += "&div="+prefs.getString("DIV","A");
         new AsyncHttpClient().get(server+url, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
@@ -84,6 +90,18 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
                         message += "\nEMAIL: "+res.getString("email");
                         message += "\nBRANCH: "+res.getString("branch");
                         message += "\nLOCATION: "+res.getString("location");
+                        cards.add(new ChatCard(message, messageType, false));
+                        notifyDataSetChanged();
+                    }
+                    else if(messageType.equalsIgnoreCase("EXAM")){
+                        JSONArray schedule = res.getJSONArray("schedule");
+                        for(int i=0; i<schedule.length(); i++){
+                            JSONObject exam = schedule.getJSONObject(i);
+                            message += "\nSUB: "+exam.getString("subject_code");
+                            message += "\nStarts at "+exam.getString("start_time");
+                            message += "\nEnds at "+exam.getString("end_time");
+                            message += "\nDate: "+exam.getString("date")+"\n";
+                        }
                         cards.add(new ChatCard(message, messageType, false));
                         notifyDataSetChanged();
                     }
