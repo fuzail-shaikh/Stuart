@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Stuart</string>
     <string name="title_activity_main">Stuart</string>
-    <string name="server">http://52.42.138.217:3000</string>
+    <string name="server">http://34.218.249.207:3000</string>
 
     <string name="courses">Courses</string>
     <string name="schedule">Schedule</string>
