@@ -105,7 +105,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
                         cards.add(new ChatCard(message, messageType, false));
                         notifyDataSetChanged();
                     }
-                    else if(messageType.equalsIgnoreCase("WRITEUP")){
+                    else if(messageType.equalsIgnoreCase("PDF")){
                         new DownloadFile().execute(server+"/files/"+res.getString("path"), res.getString("fileName"));
                         Toast.makeText(context, "File downloading...", Toast.LENGTH_SHORT).show();
                         cards.add(new ChatCard(message, messageType, res.getString("fileName"), false));
@@ -172,7 +172,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
             holder.fileOpenText.setVisibility(View.GONE);
             new ImageLoadTask(cards.get(position).path, holder.image).execute();
         }
-        else if(cards.get(position).type.equalsIgnoreCase("WRITEUP")){
+        else if(cards.get(position).type.equalsIgnoreCase("PDF")){
             holder.fileOpenText.setText("Click here to view file");
             holder.image.setVisibility(View.GONE);
             holder.fileOpenText.setVisibility(View.VISIBLE);
